@@ -1,14 +1,31 @@
+buildscript {
+    ext {
+        springBootVersion = '2.4.13'
+        javaVersion = 1.8
+    }
+}
+
 plugins {
-    id 'org.springframework.boot' version '2.3.7.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+    id 'org.springframework.boot' version "${springBootVersion}"
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
 }
 
+apply plugin: 'java'
+apply plugin: 'io.spring.dependency-management'
+
 group = 'com.hcg'
 version = '2021.1.0-SNAPSHOT'
-sourceCompatibility = '11'
+sourceCompatibility = "${javaVersion}"
+targetCompatibility = "${javaVersion}"
 
 repositories {
+    mavenLocal()
+    maven { url 'https://maven.aliyun.com/repository/public' }
+    maven { url 'https://maven.aliyun.com/repository/google' }
+    maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+    maven { url 'https://maven.aliyun.com/repository/spring' }
+    maven { url 'https://maven.aliyun.com/repository/spring-plugin' }
     mavenCentral()
 }
 
@@ -19,4 +36,8 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
 }
